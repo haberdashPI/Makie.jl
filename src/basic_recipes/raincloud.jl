@@ -127,7 +127,7 @@ function plot!(
 
     plot = plot!(ax.scene, P, allattrs, category_labels, data_array)
 
-    if eltype(category_labels) <: AbstractString
+    if any(x -> x isa AbstractString, category_labels)
         ulabels = unique(category_labels)
         ax.xticks = (1:length(ulabels), ulabels)
     end
@@ -185,7 +185,7 @@ function plot!(plot::RainClouds)
     # Checking kwargs, and assigning defaults if they are not in kwargs
     # General Settings
     # Define where categories should lie
-    x_positions = if eltype(category_labels) isa String 
+    x_positions = if any(x -> x isa AbstractString, category_labels)
         labels = unique(category_labels)
         pos = Dict(label => i for (i, label) in enumerate(labels))
         [pos[label] for label in category_labels] 
